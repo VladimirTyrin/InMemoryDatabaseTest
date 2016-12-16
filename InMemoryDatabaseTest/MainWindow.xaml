@@ -6,7 +6,59 @@
         xmlns:local="clr-namespace:InMemoryDatabaseTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:MainWindowViewModel x:Name="ViewModel" />
+    </Window.DataContext>
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Label Name="NameLabel"
+                   Grid.Column="0"
+                   Content="Name:"
+                   Margin="10"></Label>
+            
+            <TextBox Name="NameTextBox"
+                     Grid.Column="1"
+                     Margin="10"></TextBox>
+            
+            <Button Name="AddButton"
+                    Grid.Column="2"
+                    MinWidth="80"
+                    Margin="10"
+                    Content="Add new"
+                    Click="AddButton_OnClick"></Button>
+
+            <Button Name="UpdateButton"
+                    Grid.Column="3"
+                    MinWidth="80"
+                    Margin="10"
+                    Content="Update"
+                    Click="UpdateButton_OnClick"></Button> 
+        </Grid>
         
+        <DataGrid Name="EntitiesDataGrid"
+                  Margin="10"
+                  Grid.Row="1"
+                  AutoGenerateColumns="True"
+                  ItemsSource="{Binding Entities, Mode=OneWay}"
+                  DataContext="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" MinWidth="50"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
+
