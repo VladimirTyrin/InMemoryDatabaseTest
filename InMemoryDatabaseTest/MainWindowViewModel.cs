@@ -23,7 +23,8 @@ namespace InMemoryDatabaseTest
             Update();
         }
 
-        public readonly ObservableCollection<BaseViewModel> Collection = new ObservableCollection<BaseViewModel>();
+        public BaseViewModel SelectedItem { get; set; }
+        public ObservableCollection<BaseViewModel> Collection { get; } = new ObservableCollection<BaseViewModel>();
 
         public void Update()
         {
@@ -47,6 +48,19 @@ namespace InMemoryDatabaseTest
                 {
                     Name = name
                 });
+                context.SaveChanges();
+            }
+            Update();
+        }
+
+        public void RemoveCurrent()
+        {
+            if (SelectedItem == null)
+                return;
+
+            using (var context = new InMemoryContext())
+            {
+                context.BaseEntities.Remove(SelectedItem.Entity);
                 context.SaveChanges();
             }
             Update();

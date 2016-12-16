@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Window.DataContext>
-        <local:MainWindowViewModel x:Name="ViewModel" />
+        <local:MainWindowViewModel x:Name="ViewModel"/>
     </Window.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -53,8 +53,9 @@
                   Grid.Row="1"
                   AutoGenerateColumns="True"
                   IsReadOnly="True"
-                  ItemsSource="{Binding Entities, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  DataContext="{Binding}">
+                  KeyDown="EntitiesDataGrid_OnKeyDown"
+                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
+                  ItemsSource="{Binding Path=Collection, Mode=OneWay}">
         </DataGrid>
     </Grid>
 </Window>

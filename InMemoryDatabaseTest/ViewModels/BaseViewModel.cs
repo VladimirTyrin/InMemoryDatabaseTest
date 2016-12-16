@@ -18,19 +18,21 @@ namespace InMemoryDatabaseTest.ViewModels
 
         public BaseViewModel(BaseEntity entity)
         {
-            _entity = entity;
+            Entity = entity;
         }
+
+        public int Id => Entity.Id;
 
         public string Name
         {
-            get { return _entity.Name; }
+            get { return Entity.Name; }
             set
             {
-                _entity.Name = value;
+                Entity.Name = value;
                 OnPropertyChanged();
             }
         }
 
-        private readonly BaseEntity _entity;
+        public readonly BaseEntity Entity;
     }
 }
