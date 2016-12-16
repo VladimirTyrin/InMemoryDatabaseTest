@@ -47,17 +47,14 @@
                     Content="Update"
                     Click="UpdateButton_OnClick"></Button> 
         </Grid>
-        
+
         <DataGrid Name="EntitiesDataGrid"
                   Margin="10"
                   Grid.Row="1"
                   AutoGenerateColumns="True"
-                  ItemsSource="{Binding Entities, Mode=OneWay}"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Entities, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   DataContext="{Binding}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" MinWidth="50"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>

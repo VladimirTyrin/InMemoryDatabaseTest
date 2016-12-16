@@ -1,35 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using InMemoryDatabaseTest.Entities;
+using InMemoryDatabaseTest.ViewModels;
 
 namespace InMemoryDatabaseTest
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public MainWindowViewModel()
+        {
+            var examples = new List<BaseEntity>
+            {
+                new BaseEntity {Name = "First entity"}
+            };
+            using (var context = new InMemoryContext())
+            {
+                context.BaseEntities.AddRange(examples);
+                context.SaveChanges();
+            }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Update();
+        }
 
-        public ObservableCollection<BaseEntity> Entities = new ObservableCollection<BaseEntity>();
+        public readonly ObservableCollection<BaseViewModel> Collection = new ObservableCollection<BaseViewModel>();
 
         public void Update()
         {
+            List<BaseEntity> allNew;
             using (var context = new InMemoryContext())
             {
-                var allNew = context.BaseEntities.ToList();
-                Entities.Clear();
-                foreach (var baseEntity in allNew)
-                {
-                    Entities.Add(baseEntity);
-                }
+                allNew = context.BaseEntities.ToList();
+            }
+            Collection.Clear();
+            foreach (var baseEntity in allNew)
+            {
+                Collection.Add(new BaseViewModel(baseEntity));
             }
         }
 
@@ -43,6 +49,7 @@ namespace InMemoryDatabaseTest
                 });
                 context.SaveChanges();
             }
+            Update();
         }
     }
 }
