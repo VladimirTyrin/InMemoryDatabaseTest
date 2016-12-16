@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using InMemoryDatabaseTest.Entities;
 using InMemoryDatabaseTest.ViewModels;
 
@@ -56,7 +57,9 @@ namespace InMemoryDatabaseTest
         public void RemoveCurrent()
         {
             if (SelectedItem == null)
+            {
                 return;
+            }
 
             using (var context = new InMemoryContext())
             {

@@ -20,7 +20,7 @@ namespace InMemoryDatabaseTest
 
         private void EntitiesDataGrid_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Delete)
+            if (e.Key == Key.D)
                 ViewModel.RemoveCurrent();
         }
     }
